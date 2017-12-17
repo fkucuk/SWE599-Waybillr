@@ -1,10 +1,10 @@
 {
-  "name": "Waybillr Progressive Web App",
+  "name": "Waybillr - A Progressive Web App",
   "short_name": "Waybillr",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#fff",
-  "description": "Waybillr a progressive web app for billing.",
+  "description": "Waybillr a progressive web app for waybills.",
   "icons": [{
     "src": "assets/img/icons/homescreen48.png",
     "sizes": "48x48",

@@ -97,14 +97,7 @@ self.addEventListener('fetch', function(e) {
 						};
 						request.clone().text().then(function (body) {
 							serialized.body = body;
-							
-							// callsToCache.push(serialized);
-
 							addQueueToDB(serialized);
-							
-							// fuck sync
-							// self.registration.sync.register('sync-posts');
-							// console.log(callsToCache);
 						});
 					}
 					// Immediately respond if request exists in the cache and user is offline
@@ -203,78 +196,6 @@ self.addEventListener('fetch', function(e) {
 	);
 
 }
-
-// 	var networkDataReceived = false;
-
-// startSpinner();
-
-// // fetch fresh data
-// var networkUpdate = fetch(e.request).then(function (response) {
-// 	networkDataReceived = true;
-// 	updateCache(data);
-// 	return response;
-// });
-// // fetch cached data
-// caches.match('/data.json').then(function (response) {
-// 	if (!response) throw Error("No data");
-// 	return response.json();
-// }).then(function (data) {
-// 	// don't overwrite newer network data
-// 	if (!networkDataReceived) {
-// 		updatePage(data);
-// 	}
-// }).catch(function () {
-// 	// we didn't get cached data, the network is our last hope:
-// 	return networkUpdate;
-// }).catch(showErrorMessage).then(stopSpinner());
-
-	// e.respondWidth Responds to the fetch event
-	// e.respondWith(
-
-	// 	// Check in cache for the request being made
-	// 	caches.match(e.request)
-	// 		.then(function(response) {
-	// 			// If the request is NOT in the cache, fetch and cache
-
-	// 			// If the request is in the cache
-	// 			if (response) {
-	// 				console.log("[ServiceWorker] Found in Cache", e.request.url, response);
-	// 				// Return the cached version
-	// 				return response;
-	// 			}
-
-	// 			var requestClone = e.request.clone();
-	// 			fetch(requestClone)
-	// 				.then(function(response) {
-
-	// 					if ( !response ) {
-	// 						console.log("[ServiceWorker] No response from fetch ")
-	// 						return response;
-							
-	// 					}
-
-	// 					var responseClone = response.clone();
-
-	// 					//  Open the cache
-	// 					caches.open(cacheName).then(function(cache) {
-
-	// 						// Put the fetched response in the cache
-	// 						cache.put(e.request, responseClone);
-	// 						console.log('[ServiceWorker] New Data Cached', e.request.url);
-
-	// 						// Return the response
-	// 						return response;
-			
-	// 			        }); // end caches.open
-
-	// 				})
-	// 				.catch(function(err) {
-	// 					console.log('[ServiceWorker] Error Fetching & Caching New Data', err);
-	// 				});
-
-
-	// 		}) // end caches.match(e.request)
-	// ); // end e.respondWith
 });
 
 function updateCache(request){
@@ -301,18 +222,6 @@ function send_message_to_client(clientId, msg) {
 		});
 	});
 }
-
-
-// Cache signature post request
-//This retrieves all the information about the POST request including the formdata body, where the URL contains updateSignature.
-// Resubmit offline signature requests
-//This resubmits all cached POST results and then empties the array.
-
-// self.addEventListener('fetch', function (event) {
-// 	// Intercept all fetch requests from the parent page
-	
-// });
-
 
 function clearDB() {
 	var offlineDB = indexedDB.open("offlineDB", 1);
