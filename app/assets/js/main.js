@@ -18,8 +18,9 @@ var flag_camera_open = false;
 var app = {
 
   init: function() {
-    app.getProvinces()
-    app.getCompanies()
+    app.getProvinces();
+    app.getCompanies();
+    app.getProducts();
   },
   
   addProductToWaybill: function(barcodeNumber) {
@@ -280,39 +281,6 @@ var app = {
 
   saveCompany: function() {
 
-    console.log(JSON.stringify({
-      "name": "",
-      "fields": {
-          "provincegeoid": {
-              "integerValue": $('#com-province').val()
-          },
-          "localaccountnumber": {
-              "stringValue": $('#com-account-number').val()
-          },
-          "websiteurl": {
-              "stringValue": $('#com-website').val()
-          },
-          "addressline2": {
-              "stringValue": ""
-          },
-          "isactive": {
-              "booleanValue": true
-          },
-          "countrygeoid": {
-              "integerValue": "1"
-          },
-          "districtgeoid": {
-              "integerValue": $('#com-district').val()
-          },
-          "name": {
-              "stringValue": $('#com-name').val()
-          },
-          "addressline1": {
-              "stringValue": $('#com-address').val()
-          }
-      }
-  })
-)
     $.ajax({
         url: "https://firestore.googleapis.com/v1beta1/projects/swe599-waybill/databases/(default)/documents/companies?documentId=" + $('#com-name').val(),
         type: "POST",
@@ -363,63 +331,6 @@ var app = {
     .always(function() {
         /* ... */
     });
-  
-    // $.ajax({
-    //   url: endpoints[GET_COMPANIES],
-    //   type: 'POST',
-    //   dataType: 'json',
-    //   data: {
-    //     name: "",
-    //     fields: {
-    //       websiteurl: {
-    //         stringValue: $('com-website').val()
-    //       },
-    //       localaccountnumber: {
-    //         stringValue: $('com-account-number').val()
-    //       },
-    //       name: {
-    //         stringValue: $('com-name').val()
-    //       },
-    //       addressline1: {
-    //         stringValue: $('com-address').val()
-    //       },
-    //       addressline2: {
-    //         stringValue: ""
-    //       },
-    //       countrygeoid: {
-    //         integerValue: "1"
-    //       },
-    //       districtgeoid: {
-    //         integerValue: $('com-district').val()
-    //       },
-    //       provincegeoid: {
-    //         integerValue: $('com-province').val()
-    //       },
-    //       isactive: {
-    //         booleanValue: true
-    //       }
-    //     }
-    //   },
-    //   success: function (data, textStatus, jqXHR) {
-    //     if (typeof data.error === 'undefined') {
-    //       // Success so call function to process the form
-
-    //       // console.log(data.documents[0].fields.name.stringValue)
-
-    //       companyArray = data.documents
-
-    //       callback()
-    //     }else {
-    //       // Handle errors here
-    //       console.log('ERRORS: ' + data.error)
-    //     }
-    //   },
-    //   error: function (jqXHR, textStatus, errorThrown) {
-    //     // Handle errors here
-    //     console.log('ERRORS: ' + textStatus)
-    //   // STOP LOADING SPINNER
-    //   }
-    // })
   },
   
   navigateTo: function(sectionId)  {
@@ -446,8 +357,7 @@ var app = {
           $('section#waybill').fadeIn()
           $('.actionbar').slideDown(300)
 
-          app.listCompanies()
-          app.getProducts()
+          app.listCompanies();
 
         })
         break
@@ -482,38 +392,11 @@ var app = {
         break
       }
   }
-  
 }
-
 
 ;(function ($) {
   'use strict' // Start of use strict
-
-  // Smooth scrolling using jQuery easing
-  $('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function () {
-    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
-      var target = $(this.hash)
-      target = target.length ? target : $('[name=' + this.hash.slice(1) + ']')
-      if (target.length) {
-        $('html, body').animate({
-          scrollTop: (target.offset().top - 54)
-        }, 1000, 'easeInOutExpo')
-        return false
-      }
-    }
-  })
-
-  // Closes responsive menu when a scroll trigger link is clicked
-  $('.js-scroll-trigger').click(function () {
-    $('.navbar-collapse').collapse('hide')
-  })
-
-  // Activate scrollspy to add active class to navbar items on scroll
-  $('body').scrollspy({
-    target: '#mainNav',
-    offset: 54
-  })
-
+  
   // ====
   app.init()
 
@@ -540,8 +423,6 @@ var app = {
       }
     })
   })
-
-
 
   // Waybill Form
   $('#company-dropdown').change(function() {
