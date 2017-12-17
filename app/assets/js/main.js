@@ -451,7 +451,7 @@ var app = {
 
       var districtArray = currentProvince.districts
 
-      var output = '<option value="-1">Select province</option>';
+      var output = '<option value="-1">Select district</option>';
 
       districtArray.forEach(element => {
         output += '<option value="' + element.code + '">' + (element.name) + '</option>';
