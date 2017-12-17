@@ -295,9 +295,10 @@ var app = {
       })
     })
       .done(function (data, textStatus, jqXHR) {
-        app.showAlert('Saved!', 'success')
-        app.navigateTo('btn-company')
-        app.getCompanies()
+        app.showAlert('Saved!', 'success');
+        app.navigateTo('btn-company');
+        app.getCompanies();
+        app.dumpCompanies();
       })
       .fail(function (jqXHR, textStatus, errorThrown) {
         console.log("HTTP Request Failed");
