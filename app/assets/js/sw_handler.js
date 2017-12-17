@@ -1,7 +1,7 @@
 class AppStatus {
     constructor(appInstance) {
         this.app = appInstance;
-        this.watchers = {online: [], offline: []};
+        this.watchers = { online: [], offline: [] };
     }
     on(eventName, callback) {
         var realStatus, eventClasses;
@@ -31,13 +31,13 @@ class AppStatus {
             eventClasses = null;
         }
         if (this.watchers.hasOwnProperty(realStatus)) {
-        this.watchers[realStatus].forEach(function(element, index){
-                if(element.eventClasses.indexOf(eventClasses) !== -1 || element.callback === callback){
+            this.watchers[realStatus].forEach(function (element, index) {
+                if (element.eventClasses.indexOf(eventClasses) !== -1 || element.callback === callback) {
                     this.onlineWatchers.splice(index, 1);
                 }
-                });
+            });
         }
-  
+
     }
     dispatch(event) {
         if (this.watchers.hasOwnProperty(event)) {
@@ -53,7 +53,7 @@ var waybillrEvents = new AppStatus();
 waybillrEvents.on('offline', () => {
     $('.online-btn').each(function () {
         $(this).attr('data-restore-class', $(this).attr('class'));
-        setTimeout(()=>{
+        setTimeout(() => {
             $(this).removeClass('btn-primary btn-default btn-success').addClass('btn-warning offline-warn');
         }, 300);
         this.setAttribute('disabled', '');
@@ -95,12 +95,12 @@ if ('serviceWorker' in navigator) {
         event.ports[0].postMessage(event.data + ' ok');
     });
 }
-function registerForSync(promise){
-navigator.serviceWorker.ready.then(function (reg) {
-    return reg.sync.register('action:send--datato:url--data:adsasd');
-}).then(function () {
-    console.log('sync registered');
-});
+function registerForSync(promise) {
+    navigator.serviceWorker.ready.then(function (reg) {
+        return reg.sync.register('action:send--datato:url--data:adsasd');
+    }).then(function () {
+        console.log('sync registered');
+    });
 }
 // 
 
@@ -116,12 +116,12 @@ offlineDB.onsuccess = function () {
     var db = offlineDB.result;
     var tx = db.transaction("MyObjectStore", "readwrite");
     var store = tx.objectStore("MyObjectStore");
-    
+
     console.log(store);
     var crequest = store.count();
-    crequest.onsuccess = function(e){
+    crequest.onsuccess = function (e) {
     }
-  
+
     // Query the data
     var request = store.getAll();
     request.onsuccess = function (e) {
